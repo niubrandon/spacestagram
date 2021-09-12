@@ -16,45 +16,56 @@ class Container extends React.Component {
   render() {
     const wrapper = {
       display: 'grid',
-      gridTemplateColumns: 'repeat(10, 1fr)',
-      gridAutoRows: 'minmax(75px, auto)'
+      gridTemplateColumns: 'repeat(11, 1fr)',
+      gridAutoRows: 'minmax(60px, auto)'
     }
 
     const one = {  
-      gridColumn: '1 / 11',
-      gridRow: '1 / 3',
-      backgroundColor: 'antiquewhite'
+      gridColumn: '1 / 12',
+      gridRow: '1 / 6',
+      backgroundColor: 'antiquewhite',
+      backgroundImage: 'url("./earth.png")',
+      backgroundSize: 'cover',
+      marginBottom: '20px'
     } 
  
     const two = {
       gridColumn: '1 / 2',
-      gridRow: '3 / 11',
+      gridRow: '6 / 14',
       backgroundColor: 'whitesmoke'
     }
 
     const three = {
-      gridColumn: '2 / 11',
-      gridRow: '3 / 11',
-      border: 'solid 5px black'
+      gridColumn: '2 / 12',
+      gridRow: '6 / 14',
+     // border: 'solid 5px black'
 
     }
 
     const four = {   
-      gridColumn: '1 / 11',
-      gridRow: '11 / 13',
-      backgroundColor: 'antiquewhite'
+      gridColumn: '11 / 13',
+      gridRow: '6 / 14',
+      backgroundColor: 'whitesmoke'
     } 
+
+    const five = {
+      gridColumn: '1 / 12',
+      gridRow: '14 / 16',
+      backgroundColor: 'whitesmoke'
+    }
 
     return(
       <div style={wrapper}>
         <div style={one}>
-          <h1>Spacestagram</h1>
+          <p style={{color: 'whitesmoke', textAlign: 'left', marginLeft: '20px', fontSize: '2em', fontWeight: 'bold'}}>Spacestagram</p>
+            <p style={{color: 'whitesmoke', textAlign: 'left', marginLeft: '20px', fontSize: '1em', flexWrap: 'wrap', fontStyle: 'italic'}}>Brought to you by NASA Astronomy Photo of the Day (APOD) API</p>
         </div>
         <div style={two}></div>
         <div style={three}>
             <CardCollection />     
         </div>
         <div style={four}></div> 
+        <div style={five}></div> 
         
       </div>
     )

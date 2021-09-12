@@ -5,6 +5,7 @@ import { PossibleTypeExtensionsRule } from 'graphql';
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import './App.css';
 
 class CardCollection extends React.Component {
   constructor(props) {
@@ -70,8 +71,10 @@ class CardCollection extends React.Component {
     }
 
     const flexItem = {
-      width: '33%',
-      height: '50%',
+      width: '30%',
+      height: '46%',
+      margin: '5px',
+      boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px'
     }
 
     const flexContianerVertical = {
@@ -93,20 +96,22 @@ class CardCollection extends React.Component {
       return (    
         <div style={flexContainer}>
           {items.map((item) => {
-             const colorToShow = (!(item.date in this.state.likes) || (this.state.likes[item.date] === false)) ? 'black' : 'red';
-            console.log('item.date in this.state.likes', item.date in this.state.likes)
-            console.log('colorToShow', colorToShow) 
+             const colorToShow = (!(item.date in this.state.likes) || (this.state.likes[item.date] === false)) ? 'black' : 'rgb(218, 95, 95)';
 
            return <div style={flexItem}  key={item.date.toString()}>
-              <div style={flexContianerVertical}>
-                <div style={{height: '250px'}}><img alt="" style={{width:"100%", height: "100%"}} src={item.url} /></div>
-                  <div style={{height: '50px', textAlign:'center', fontWeight:'bold'}}><p>{item.title}</p></div>
-                    <div style={{height: '150px', overflowY: 'scroll', textAlign:'initial'}}><p>{item.explanation}</p></div>
-                      <button id={item.date} style={{height: '50px'}} onClick={this.handleClick}>
-                        <FontAwesomeIcon icon={faHeart} style={{color: colorToShow, pointerEvents: 'none'}} />
-                      </button>
-                  </div>
-              </div>
+                    <div style={flexContianerVertical}>
+                      <div style={{height: '250px'}}><img alt="" style={{width:"100%", height: "100%"}} src={item.url} /></div>
+                        <div style={{height: '50px'}}>
+                          <p style={{textAlign: 'left', fontWeight: '900', flexWrap: 'wrap'}}>{ this.state.isLoaded === false ? "Loading..." : item.title}</p>
+                            <p style={{textAlign: 'left', fontWeight: '700'}}>{item.date}</p>
+                      </div>
+                        <div style={{height: '150px', overflowY: 'scroll', textAlign:'initial'}}>
+                          <p>{item.explanation}</p></div>
+                            <button id={item.date} className="click" onClick={this.handleClick} style={{height: '50px', width: '50px', margin: '5px', borderRadius: '10px', color: 'whitesmoke', border: 'whitesmoke'}} >
+                              <FontAwesomeIcon icon={faHeart} style={{color: colorToShow, pointerEvents: 'none', height: '2em', width: '2em'}} />
+                            </button>
+                      </div>
+                    </div>
           })}
         </div>
 
@@ -124,6 +129,8 @@ class CardCollection extends React.Component {
    //HTTP Request GET https://api.nasa.gov/planetary/apod
 
 //{this.state.likes[item.date.toString()] === true ? (<FontAwesomeIcon icon={faHeart} />) : (<FontAwesomeIcon icon={faHeartBroken} />)}
+
+//
 
 
 export default CardCollection;
