@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import enTranslations from '@shopify/polaris/locales/en.json';
 import {AppProvider, Page, MediaCard, Button} from '@shopify/polaris';
 import { PossibleTypeExtensionsRule } from 'graphql';
-
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeartBroken } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class CardCollection extends React.Component {
   constructor(props) {
@@ -10,8 +12,28 @@ class CardCollection extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: []
+      items: [],
+      likes: {},
     };
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    e.persist();
+    
+      console.log("the like button you clicked first time or not ",e.target.id)
+      this.setState(prevState => ({
+        likes: {
+          ...prevState.likes,
+          [e.target.id]: !(e.target.id in prevState.likes) ? true : !(prevState.likes[e.target.id])
+        }
+       }), function() {
+          console.log("finishing setState", this.state)
+
+        }
+      );
+
   }
   
   componentDidMount() {
@@ -50,32 +72,42 @@ class CardCollection extends React.Component {
     const flexItem = {
       width: '33%',
       height: '50%',
-      order: '3'
-
-
     }
+
+    const flexContianerVertical = {
+      flexDirection: 'column'
+    }
+
+    const flexItemCard = {
+      width: '100%'
+    }
+
+    
+    
     
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      return (
-        
+      return (    
         <div style={flexContainer}>
-          {items.map((item) => (
-            <div style={flexItem} id={item.date}>
-            <MediaCard title={item.title} primaryAction={{
-              content: 'Learn about getting started',
-              onAction: () => {}
-            }} description={item.explanation.substr(0,100)+ "..."} popoverActions={[{ content: 'Dismiss', onAction: () => {} }]} size="small">
-              <img alt="" width="100%" height="100%" style={{
-                objectFit: 'cover',
-                objectPosition: 'center'
-                  }} src={item.url} />
-            </MediaCard>
-            </div>
-          ))}
+          {items.map((item) => {
+             const colorToShow = (!(item.date in this.state.likes) || (this.state.likes[item.date] === false)) ? 'black' : 'red';
+            console.log('item.date in this.state.likes', item.date in this.state.likes)
+            console.log('colorToShow', colorToShow) 
+
+           return <div style={flexItem}  key={item.date.toString()}>
+              <div style={flexContianerVertical}>
+                <div style={{height: '250px'}}><img alt="" style={{width:"100%", height: "100%"}} src={item.url} /></div>
+                  <div style={{height: '50px', textAlign:'center', fontWeight:'bold'}}><p>{item.title}</p></div>
+                    <div style={{height: '150px', overflowY: 'scroll', textAlign:'initial'}}><p>{item.explanation}</p></div>
+                      <button id={item.date} style={{height: '50px'}} onClick={this.handleClick}>
+                        <FontAwesomeIcon icon={faHeart} style={{color: colorToShow, pointerEvents: 'none'}} />
+                      </button>
+                  </div>
+              </div>
+          })}
         </div>
 
 
@@ -91,7 +123,7 @@ class CardCollection extends React.Component {
    // date, start_date, end_date, count, thumbs, api_key
    //HTTP Request GET https://api.nasa.gov/planetary/apod
 
-
+//{this.state.likes[item.date.toString()] === true ? (<FontAwesomeIcon icon={faHeart} />) : (<FontAwesomeIcon icon={faHeartBroken} />)}
 
 
 export default CardCollection;
