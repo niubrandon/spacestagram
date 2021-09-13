@@ -2,6 +2,7 @@ import { Autocomplete } from '@shopify/polaris';
 import React from 'react';
 import CardCollection from './CardCollection';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 class Container extends React.Component {
   constructor(props) {
     super(props);

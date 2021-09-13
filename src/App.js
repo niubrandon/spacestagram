@@ -6,13 +6,11 @@ import CardCollection from './CardCollection';
 import Container from './Container';
 
 function App() {
-  return (
-   
-        <div className="App">
+  return ( 
+    <div className="App">
       <Container />
     </div>
-   
-  
+
   );
 }
 
