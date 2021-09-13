@@ -1,7 +1,7 @@
 import { Autocomplete } from '@shopify/polaris';
 import React from 'react';
 import CardCollection from './CardCollection';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class Container extends React.Component {
   constructor(props) {
     super(props);
@@ -45,13 +45,14 @@ class Container extends React.Component {
     const four = {   
       gridColumn: '11 / 13',
       gridRow: '6 / 14',
-      backgroundColor: 'whitesmoke'
+      backgroundColor: 'whitesmoke',
     } 
 
     const five = {
       gridColumn: '1 / 12',
       gridRow: '14 / 16',
-      backgroundColor: 'whitesmoke'
+      backgroundImage: 'url("./earth.png")',
+      backgroundSize: 'cover',
     }
 
     return(
@@ -60,12 +61,15 @@ class Container extends React.Component {
           <p style={{color: 'whitesmoke', textAlign: 'left', marginLeft: '20px', fontSize: '2em', fontWeight: 'bold'}}>Spacestagram</p>
             <p style={{color: 'whitesmoke', textAlign: 'left', marginLeft: '20px', fontSize: '1em', flexWrap: 'wrap', fontStyle: 'italic'}}>Brought to you by NASA Astronomy Photo of the Day (APOD) API</p>
         </div>
-        <div style={two}></div>
-        <div style={three}>
-            <CardCollection />     
-        </div>
-        <div style={four}></div> 
-        <div style={five}></div> 
+          <div style={two}>
+          </div>
+            <div style={three}>
+              <CardCollection />     
+            </div>
+              <div style={four}></div> 
+                <div style={five}> 
+                  <p id="heart" style={{color: 'whitesmoke', marginTop: '2em'}}>Made with ❤ by Brandon Niu</p>
+        </div> 
         
       </div>
     )
